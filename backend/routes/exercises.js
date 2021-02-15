@@ -2,7 +2,7 @@
 const router = require('express').Router();
 
 //import exercise schema
-let Exercise = require('../models/exercise.model');
+let Exercise = require('../models/exercise_model');
 
 //API endpoint that handles HTTP GET requests on '.../exercises/' path
 //find() is mongoose method that reads list of all exercises from MongoDB database  

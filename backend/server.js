@@ -18,7 +18,7 @@ app.use(express.json());
 const uri = process.env.ATLAS_URI; //ATLAS_URI is an environment variable
 
 //connect to MongoDB database through mongoose
-//Two flags: useNewUrlParser, useCreateIndex
+//Three flags: useNewUrlParser, useCreateIndex, useUnifiedTopology
 //useNewUrlParser: mongoDB driver rewrote the tool it uses to parse mongoDB connection strings
 //useCreateIndex: to deal with mongoDB depreciating the ensure index function 
 //useUnifiedTopology: 
