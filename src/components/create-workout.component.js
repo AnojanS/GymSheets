@@ -7,28 +7,28 @@ export default class CreateWorkout extends Component {
   constructor(props) {
     super(props);
 
-    this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onChangeExercise = this.onChangeExercise.bind(this);
     this.onChangeSets = this.onChangeSets.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangeDate = this.onChangeDate.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
-      username: '',
+      exercise: '',
       description: '',
       sets: 0,
       date: new Date(),
-      users: []
+      exercises: []
     }
   }
 
   componentDidMount() {
-    axios.get('http://localhost:3000/users/')
+    axios.get('http://localhost:3000/exercises/')
       .then(response => {
         if (response.data.length > 0) {
           this.setState({
-            users: response.data.map(user => user.username),
-            username: response.data[0].username
+            exercises: response.data.map(exercise => exercise.exercise),
+            exercise: response.data[0].exercise
           })
         }
       })
@@ -38,9 +38,9 @@ export default class CreateWorkout extends Component {
 
   }
 
-  onChangeUsername(e) {
+  onChangeExercise(e) {
     this.setState({
-      username: e.target.value
+      exercise: e.target.value
     })
   }
 
@@ -66,7 +66,7 @@ export default class CreateWorkout extends Component {
     e.preventDefault();
 
     const workout = {
-      username: this.state.username,
+      exercise: this.state.exercise,
       description: this.state.description,
       sets: this.state.sets,
       date: this.state.date
@@ -86,17 +86,17 @@ export default class CreateWorkout extends Component {
       <h3>Create New Workout Log</h3>
       <form onSubmit={this.onSubmit}>
         <div className="form-group"> 
-          <label>Username: </label>
-          <select ref="userInput"
+          <label>Exercise: </label>
+          <select ref="exerciseInput"
               required
               className="form-control"
-              value={this.state.username}
-              onChange={this.onChangeUsername}>
+              value={this.state.exercise}
+              onChange={this.onChangeExercise}>
               {
-                this.state.users.map(function(user) {
+                this.state.exercises.map(function(exercise) {
                   return <option 
-                    key={user}
-                    value={user}>{user}
+                    key={exercise}
+                    value={exercise}>{exercise}
                     </option>;
                 })
               }

@@ -32,13 +32,13 @@ connection.once('open', () => {
 
 //import our router files
 const workoutRouter = require('./routes/workouts');
-const userRouter = require('./routes/users');
+const exerciseRouter = require('./routes/exercises');
 
 //tell express to use router files
 //navigating to /workouts will load everything in the workout router
-//navigating to /users will load everything in the user router
+//navigating to /exercises will load everything in the exercise router
 app.use('/workouts', workoutRouter);
-app.use('/users', userRouter);
+app.use('/exercises', exerciseRouter);
 
 //listening in on server from specified port
 app.listen(port, () => {

@@ -2,11 +2,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-//build workoutSchema with following fields: username, sets, description, date
+//build workoutSchema with following fields: exercise, sets, description, date
 //Each field has following validations: type, required
 //timestamps field will keep track of timestamps for when workout was created and modified
 const workoutSchema = new Schema({
-    username: {type: String, required: true},
+    exercise: {type: String, required: true},
     sets: {type: Number, required: true},
     description: {type: String, required: true},
     date: {type: Date, required: true},

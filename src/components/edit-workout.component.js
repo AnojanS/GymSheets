@@ -7,18 +7,18 @@ export default class EditWorkout extends Component {
   constructor(props) {
     super(props);
 
-    this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onChangeExercise = this.onChangeExercise.bind(this);
     this.onChangeSets = this.onChangeSets.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangeDate = this.onChangeDate.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
-      username: '',
+      exercise: '',
       description: '',
       sets: 0,
       date: new Date(),
-      users: []
+      exercises: []
     }
   }
 
@@ -26,7 +26,7 @@ export default class EditWorkout extends Component {
     axios.get('http://localhost:3000/workouts/'+this.props.match.params.id)
       .then(response => {
         this.setState({
-          username: response.data.username,
+          exercise: response.data.exercise,
           sets: response.data.sets,
           description: response.data.description,
           date: new Date(response.data.date)
@@ -36,11 +36,11 @@ export default class EditWorkout extends Component {
         console.log(error);
       })
 
-    axios.get('http://localhost:3000/users/')
+    axios.get('http://localhost:3000/exercises/')
       .then(response => {
         if (response.data.length > 0) {
           this.setState({
-            users: response.data.map(user => user.username),
+            exercises: response.data.map(exercise => exercise.exercise),
           })
         }
       })
@@ -50,9 +50,9 @@ export default class EditWorkout extends Component {
 
   }
 
-  onChangeUsername(e) {
+  onChangeExercise(e) {
     this.setState({
-      username: e.target.value
+      exercise: e.target.value
     })
   }
 
@@ -78,7 +78,7 @@ export default class EditWorkout extends Component {
     e.preventDefault();
 
     const workout = {
-      username: this.state.username,
+      exercise: this.state.exercise,
       sets: this.state.sets,
       description: this.state.description,
       date: this.state.date
@@ -98,17 +98,17 @@ export default class EditWorkout extends Component {
       <h3>Edit Workout Log</h3>
       <form onSubmit={this.onSubmit}>
         <div className="form-group"> 
-          <label>Username: </label>
-          <select ref="userInput"
+          <label>Exercise: </label>
+          <select ref="exerciseInput"
               required
               className="form-control"
-              value={this.state.username}
-              onChange={this.onChangeUsername}>
+              value={this.state.exercise}
+              onChange={this.onChangeExercise}>
               {
-                this.state.users.map(function(user) {
+                this.state.exercises.map(function(exercise) {
                   return <option 
-                    key={user}
-                    value={user}>{user}
+                    key={exercise}
+                    value={exercise}>{exercise}
                     </option>;
                 })
               }

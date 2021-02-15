@@ -6,7 +6,7 @@ import Navbar from "./components/navbar.component";
 import WorkoutsList from "./components/workouts-list.component";
 import EditWorkout from "./components/edit-workout.component";
 import CreateWorkout from "./components/create-workout.component";
-import CreateUser from "./components/create-user.component";
+import CreateExercise from "./components/create-exercise.component";
 
 function App() {
   return (
@@ -17,7 +17,7 @@ function App() {
       <Route path="/" exact component={WorkoutsList} />
       <Route path="/edit/:id" component={EditWorkout} />
       <Route path="/create" component={CreateWorkout} />
-      <Route path="/user" component={CreateUser} />
+      <Route path="/exercise" component={CreateExercise} />
       </div>
     </Router>
   );

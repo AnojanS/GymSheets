@@ -16,12 +16,12 @@ router.route('/').get((req, res) => {
 //API endpoint that handles HTTP POST requests on '.../workouts/add' path
 router.route('/add').post((req, res) => {
     //create new Workout instance using given schema inputs 
-    const username = req.body.username;
+    const exercise = req.body.exercise;
     const sets = Number(req.body.sets); //convert to Number type
     const description = req.body.description;
     const date = Date.parse(req.body.date); //convert to Date type
     const newWorkout = new Workout({
-        username,
+        exercise,
         sets,
         description,
         date,
@@ -49,7 +49,7 @@ router.route('/:id').get((req, res) => {
 router.route('/update/:id').post((req, res) => {
     Workout.findById(req.params.id) //find workout with object id provided in url
         .then(workout => {
-            workout.username = req.body.username;
+            workout.exercise = req.body.exercise;
             workout.sets = Number(req.body.sets);
             workout.description = req.body.description;
             workout.date = Date.parse(req.body.date);
