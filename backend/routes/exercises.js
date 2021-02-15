@@ -17,13 +17,13 @@ router.route('/').get((req, res) => {
 router.route('/add').post((req, res) => {
     //create new Exercise instance using given schema inputs 
     const username = req.body.username;
+    const sets = Number(req.body.sets); //convert to Number type
     const description = req.body.description;
-    const duration = Number(req.body.duration); //convert to Number type
     const date = Date.parse(req.body.date); //convert to Date type
     const newExercise = new Exercise({
         username,
+        sets,
         description,
-        duration,
         date,
     });
 
@@ -50,8 +50,8 @@ router.route('/update/:id').post((req, res) => {
     Exercise.findById(req.params.id) //find exercise with object id provided in url
         .then(exercise => {
             exercise.username = req.body.username;
+            exercise.sets = Number(req.body.sets);
             exercise.description = req.body.description;
-            exercise.duration = Number(req.body.duration);
             exercise.date = Date.parse(req.body.date);
 
             exercise.save()

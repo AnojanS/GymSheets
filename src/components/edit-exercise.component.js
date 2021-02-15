@@ -8,15 +8,15 @@ export default class EditExercise extends Component {
     super(props);
 
     this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onChangeSets = this.onChangeSets.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
-    this.onChangeDuration = this.onChangeDuration.bind(this);
     this.onChangeDate = this.onChangeDate.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
       username: '',
       description: '',
-      duration: 0,
+      sets: 0,
       date: new Date(),
       users: []
     }
@@ -27,8 +27,8 @@ export default class EditExercise extends Component {
       .then(response => {
         this.setState({
           username: response.data.username,
+          sets: response.data.sets,
           description: response.data.description,
-          duration: response.data.duration,
           date: new Date(response.data.date)
         })   
       })
@@ -62,9 +62,9 @@ export default class EditExercise extends Component {
     })
   }
 
-  onChangeDuration(e) {
+  onChangeSets(e) {
     this.setState({
-      duration: e.target.value
+      sets: e.target.value
     })
   }
 
@@ -79,8 +79,8 @@ export default class EditExercise extends Component {
 
     const exercise = {
       username: this.state.username,
+      sets: this.state.sets,
       description: this.state.description,
-      duration: this.state.duration,
       date: this.state.date
     }
 
@@ -114,6 +114,15 @@ export default class EditExercise extends Component {
               }
           </select>
         </div>
+        <div className="form-group">
+          <label>Number of Sets: </label>
+          <input 
+              type="text" 
+              className="form-control"
+              value={this.state.sets}
+              onChange={this.onChangeSets}
+              />
+        </div>
         <div className="form-group"> 
           <label>Description: </label>
           <input  type="text"
@@ -121,15 +130,6 @@ export default class EditExercise extends Component {
               className="form-control"
               value={this.state.description}
               onChange={this.onChangeDescription}
-              />
-        </div>
-        <div className="form-group">
-          <label>Duration (in minutes): </label>
-          <input 
-              type="text" 
-              className="form-control"
-              value={this.state.duration}
-              onChange={this.onChangeDuration}
               />
         </div>
         <div className="form-group">
