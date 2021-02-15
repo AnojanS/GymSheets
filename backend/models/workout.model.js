@@ -2,10 +2,10 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-//biold exerciseSchema with following fields: username, sets, description, date
+//build workoutSchema with following fields: username, sets, description, date
 //Each field has following validations: type, required
-//timestamps field will keep track of timestamps for when exercise was created and modified
-const exerciseSchema = new Schema({
+//timestamps field will keep track of timestamps for when workout was created and modified
+const workoutSchema = new Schema({
     username: {type: String, required: true},
     sets: {type: Number, required: true},
     description: {type: String, required: true},
@@ -14,6 +14,6 @@ const exerciseSchema = new Schema({
     {timestamps: true},
 );
 
-//apply exerciseSchema to type Exercise
-const Exercise = mongoose.model('Exercise', exerciseSchema)
-module.exports = Exercise;
+//apply workoutSchema to type Workout
+const Workout = mongoose.model('Workout', workoutSchema)
+module.exports = Workout;
