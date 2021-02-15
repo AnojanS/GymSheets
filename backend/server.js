@@ -42,5 +42,5 @@ app.use('/exercises', exerciseRouter);
 
 //listening in on server from specified port
 app.listen(port, () => {
-    console.log(`Server is running port: ${port}`);
+    console.log(`Server is running on port: ${port}`);
 });
