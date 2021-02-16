@@ -4,36 +4,43 @@ import axios from 'axios';
 export default class CreateExercise extends Component {
   constructor(props) {
     super(props);
-
+    
+    //ensure 'this' works properly by binding it to event handler methods
     this.onChangeExercise = this.onChangeExercise.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
+    //properties of state correspond to exercise schema
     this.state = {
       exercise: ''
     }
   }
 
-  onChangeExercise(e) {
+  //Event handler methods used to update state of each form element
+  onChangeExercise(e) { //e represents form event
     this.setState({
       exercise: e.target.value
     })
   }
 
   onSubmit(e) {
-    e.preventDefault();
+    e.preventDefault(); //prevents the default HTML form submit behavior from taking place
 
     const newExercise = {exercise: this.state.exercise}
     console.log(newExercise);
 
+    //POST request to create new exercise entry
+    //endpoint is expecting the newExercise JSON object in the request body
     axios.post('http://localhost:3000/exercises/add', newExercise)
       .then(res => console.log(res.data));
 
+    //reset exercise state back to blank 
     this.setState({
       exercise: ''
     })
   }
 
   render() {
+    //create exercise form
     return (
       <div>
         <h3>Create New Exercise</h3>

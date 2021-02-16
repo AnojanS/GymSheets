@@ -7,12 +7,14 @@ export default class EditWorkout extends Component {
   constructor(props) {
     super(props);
 
+    //ensure 'this' works properly by binding it to event handler methods
     this.onChangeExercise = this.onChangeExercise.bind(this);
     this.onChangeSets = this.onChangeSets.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangeDate = this.onChangeDate.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
+    //properties of state correspond to workout schema
     this.state = {
       exercise: '',
       description: '',
@@ -23,6 +25,8 @@ export default class EditWorkout extends Component {
   }
 
   componentDidMount() {
+    //GET request for specfic workout to fill out form with workout data
+    //this.props.match.params.id gives us id of chosen workout
     axios.get('http://localhost:3000/workouts/'+this.props.match.params.id)
       .then(response => {
         this.setState({
@@ -35,7 +39,8 @@ export default class EditWorkout extends Component {
       .catch(function (error) {
         console.log(error);
       })
-
+    
+    //GET request for all exercises for dropdown
     axios.get('http://localhost:3000/exercises/')
       .then(response => {
         if (response.data.length > 0) {
@@ -50,7 +55,8 @@ export default class EditWorkout extends Component {
 
   }
 
-  onChangeExercise(e) {
+  //Event handler methods used to update state of each form element
+  onChangeExercise(e) { //e represents form event
     this.setState({
       exercise: e.target.value
     })
@@ -75,25 +81,27 @@ export default class EditWorkout extends Component {
   }
 
   onSubmit(e) {
-    e.preventDefault();
+    e.preventDefault(); //prevents the default HTML form submit behavior from taking place
 
-    const workout = {
+    const updatedWorkout = {
       exercise: this.state.exercise,
       sets: this.state.sets,
       description: this.state.description,
       date: this.state.date
     }
 
-    console.log(workout);
+    console.log(updatedWorkout);
 
-    axios.post('http://localhost:3000/workouts/update/' + this.props.match.params.id, workout)
+    //POST request to update specific workout using its object id
+    axios.post('http://localhost:3000/workouts/update/' + this.props.match.params.id, updatedWorkout)
       .then(res => console.log(res.data));
 
-    window.location = '/';
+    window.location = '/'; //navigate back to workout log page
   }
 
   render() {
     return (
+    //edit workout form
     <div>
       <h3>Edit Workout Log</h3>
       <form onSubmit={this.onSubmit}>

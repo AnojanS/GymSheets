@@ -7,12 +7,14 @@ export default class CreateWorkout extends Component {
   constructor(props) {
     super(props);
 
+    //ensure 'this' works properly by binding it to event handler methods
     this.onChangeExercise = this.onChangeExercise.bind(this);
     this.onChangeSets = this.onChangeSets.bind(this);
     this.onChangeDescription = this.onChangeDescription.bind(this);
     this.onChangeDate = this.onChangeDate.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
+    //properties of state correspond to workout schema
     this.state = {
       exercise: '',
       description: '',
@@ -23,12 +25,13 @@ export default class CreateWorkout extends Component {
   }
 
   componentDidMount() {
+    //GET request for exercises for drop down
     axios.get('http://localhost:3000/exercises/')
       .then(response => {
-        if (response.data.length > 0) {
+        if (response.data.length > 0) { //data is what is returned from database, it is a list of json documents
           this.setState({
-            exercises: response.data.map(exercise => exercise.exercise),
-            exercise: response.data[0].exercise
+            exercises: response.data.map(exercise => exercise.exercise), //set list of exercises that will be available in dropdown from exercise JSON objects
+            exercise: response.data[0].exercise //default exercise on form is first exercise in the database
           })
         }
       })
@@ -38,7 +41,8 @@ export default class CreateWorkout extends Component {
 
   }
 
-  onChangeExercise(e) {
+  //Event handler methods used to update state of each form element
+  onChangeExercise(e) { //e represents form event
     this.setState({
       exercise: e.target.value
     })
@@ -56,32 +60,34 @@ export default class CreateWorkout extends Component {
     })
   }
 
-  onChangeDate(date) {
+  onChangeDate(date) { //no event since we are using react's date picker library
     this.setState({
       date: date
     })
   }
 
   onSubmit(e) {
-    e.preventDefault();
+    e.preventDefault(); //prevents the default HTML form submit behavior from taking place
 
-    const workout = {
+    const newWorkout = {
       exercise: this.state.exercise,
       description: this.state.description,
       sets: this.state.sets,
       date: this.state.date
     }
+    console.log(newWorkout);
 
-    console.log(workout);
-
-    axios.post('http://localhost:3000/workouts/add', workout)
+    //POST request to create new workout entry
+    //endpoint is expecting the newWorkout JSON object in the request body
+    axios.post('http://localhost:3000/workouts/add', newWorkout)
       .then(res => console.log(res.data));
 
-    window.location = '/';
+    window.location = '/'; //after form is submitted, navigate to workout log page
   }
 
   render() {
     return (
+    //create workout form
     <div>
       <h3>Create New Workout Log</h3>
       <form onSubmit={this.onSubmit}>
@@ -94,6 +100,7 @@ export default class CreateWorkout extends Component {
               onChange={this.onChangeExercise}>
               {
                 this.state.exercises.map(function(exercise) {
+                  //exercise dropdown list
                   return <option 
                     key={exercise}
                     value={exercise}>{exercise}

@@ -6,22 +6,20 @@ require('dotenv').config();
 
 //create Express server on port 3000
 const app = express();
-const port = process.env.PORT || 3000; 
+const port = process.env.PORT; 
 
 //use cors middleware
 app.use(cors());
 
-//allow us to parse JSON since server will be recieving and sending JSON
+//allow us to send JSON
+//necessary for PUT and POST, not GET and DELETE
 app.use(express.json());
 
 //mongoDB database URI
 const uri = process.env.ATLAS_URI; //ATLAS_URI is an environment variable
 
 //connect to MongoDB database through mongoose
-//Three flags: useNewUrlParser, useCreateIndex, useUnifiedTopology
-//useNewUrlParser: mongoDB driver rewrote the tool it uses to parse mongoDB connection strings
-//useCreateIndex: to deal with mongoDB depreciating the ensure index function 
-//useUnifiedTopology: 
+//useNewUrlParser, useCreateIndex, useUnifiedTopology are flags used to deal with deprecation warnings in the MongoDB Node.js driver
 mongoose.connect(uri, {useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology: true});
 const connection = mongoose.connection;
 

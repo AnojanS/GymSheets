@@ -1,6 +1,6 @@
 //import Mongoose and create mongoose schema
 const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const Schema = mongoose.Schema; //mongoose schema maps to a mongoDB collection
 
 //build exerciseSchema with following fields: exercise
 //exercise has following validations: type, required, unique, trim, minlength
@@ -16,6 +16,6 @@ const exerciseSchema = new Schema({
     {timestamps: true},
 );
 
-//apply exerciseSchema to type Exercise
-const Exercise = mongoose.model('Exercise', exerciseSchema)
-module.exports = Exercise;
+//export exerciseSchema for use by .../routes/exercises
+const Exercise = mongoose.model('Exercise', exerciseSchema) //'Exercise' is model name
+module.exports = Exercise; //modules are self-contained units of functionality that can be used throughout Node.js application 
