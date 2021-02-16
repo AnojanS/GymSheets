@@ -26,7 +26,7 @@ export default class EditWorkout extends Component {
 
   componentDidMount() {
     //GET request for specfic workout to fill out form with workout data
-    //this.props.match.params.id gives us id of chosen workout
+    //this.props.match.params.id gives us id of chosen workout using :id that was used in route path
     axios.get('http://localhost:3000/workouts/'+this.props.match.params.id)
       .then(response => {
         this.setState({
@@ -81,7 +81,7 @@ export default class EditWorkout extends Component {
   }
 
   onSubmit(e) {
-    e.preventDefault(); //prevents the default HTML form submit behavior from taking place
+    e.preventDefault(); //prevent default react form onSubmit behaviour so that we can make post request
 
     const updatedWorkout = {
       exercise: this.state.exercise,

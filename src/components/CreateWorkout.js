@@ -67,7 +67,7 @@ export default class CreateWorkout extends Component {
   }
 
   onSubmit(e) {
-    e.preventDefault(); //prevents the default HTML form submit behavior from taking place
+    e.preventDefault(); //prevent default react form onSubmit behaviour so that we can make post request
 
     const newWorkout = {
       exercise: this.state.exercise,

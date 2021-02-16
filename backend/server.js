@@ -8,7 +8,7 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT; 
 
-//use cors middleware
+//use cors middleware since our frontend and backend are on seperate servers
 app.use(cors());
 
 //allow us to send JSON
